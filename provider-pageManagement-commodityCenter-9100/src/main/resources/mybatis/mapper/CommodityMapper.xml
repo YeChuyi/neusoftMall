@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neusoft.commodityCenter.dao.CommodityDao">
+    <resultMap id="BaseResultMap" type="com.neusoft.entity.goods.CommodityVO" >
+        <id column="commodity_id" property="commodityId" jdbcType="VARCHAR" />
+        <result column="commodity_code" property="commodityCode" jdbcType="VARCHAR" />
+        <result column="commodity_name" property="commodityName" jdbcType="VARCHAR" />
+        <result column="commodity_color" property="commodityColor" jdbcType="VARCHAR" />
+        <result column="commodity_first_picture" property="commodityFirstPicture" jdbcType="VARCHAR" />
+        <result column="commodity_original_price" property="commodityOriginalPrice" jdbcType="VARCHAR" />
+        <result column="commodity_retail_price" property="commodityRetailPrice" jdbcType="VARCHAR" />
+        <result column="commodity_unit_id" property="commodityUnitId" jdbcType="VARCHAR" />
+        <result column="commodity_is_sold" property="commodityIsSold" jdbcType="VARCHAR" />
+        <result column="commodity_inventory" property="commodityInventory" jdbcType="VARCHAR" />
+        <result column="commodity_is_lack" property="commodityIsLack" jdbcType="VARCHAR" />
+        <result column="commodity_totalCount" property="commodityTotalCount" jdbcType="VARCHAR" />
+        <result column="commodity_is_recommend" property="commodityIsRecommend" jdbcType="VARCHAR" />
+        <result column="commodity_desc" property="commodityDesc" jdbcType="VARCHAR" />
+        <result column="category_first" property="categoryFirst" jdbcType="VARCHAR" />
+        <result column="category_second" property="categorySecond" jdbcType="VARCHAR" />
+        <result column="category_name1" property="categoryFirstName" jdbcType="VARCHAR" />
+        <result column="category_name2" property="categorySecondName" jdbcType="VARCHAR" />
+
+        <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
+        <result column="sort_no" property="sortNo" jdbcType="INTEGER" />
+        <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+        <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+        <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+        <result column="last_modified_by" property="lastModifiedBy" jdbcType="VARCHAR" />
+        <result column="version" property="version" jdbcType="INTEGER" />
+    </resultMap>
+
+    <sql id="sortingTotalCountSort">
+        <choose>
+            <when test="sortingTotalCount == 2">
+                c.commodity_totalCount desc
+            </when>
+            <otherwise>
+                c.commodity_totalCount asc
+            </otherwise>
+        </choose>
+    </sql>
+
+    <sql id="sortingRetailPriceSort">
+        <choose>
+            <when test="sortingRetailPrice == 2">
+                c.commodity_retail_price desc
+            </when>
+            <otherwise>
+                c.commodity_retail_price asc
+            </otherwise>
+        </choose>
+    </sql>
+
+    <sql id="getCenterCommodityListConditions">
+        <where>
+            <if test="commodityName != null and commodityName != ''">
+                and c.commodity_name like concat('%', concat(#{commodityName}, '%'))
+            </if>
+            <if test="categoryFirst != null and categoryFirst != ''">
+                and c.category_first = #{categoryFirst}
+            </if>
+            <if test="categorySecond != null and categorySecond != ''">
+                and c.category_second = #{categorySecond}
+            </if>
+                and c.is_deleted = 0
+        </where>
+        <choose>
+            <when test="sortingTotalCount != null and sortingTotalCount != ''
+                       and sortingRetailPrice != null and sortingRetailPrice != ''">
+                order by <include refid="sortingTotalCountSort"/> , <include refid="sortingRetailPriceSort"/>
+            </when>
+            <when test="sortingRetailPrice != null and sortingRetailPrice != ''">
+                order by <include refid="sortingRetailPriceSort"/>
+            </when>
+            <otherwise>
+                order by <include refid="sortingTotalCountSort"/>
+            </otherwise>
+        </choose>
+    </sql>
+
+    <!--按条件查询商品中心的商品-->
+    <select id="getCategoryList"  resultMap="BaseResultMap" parameterType="com.neusoft.entity.commodityCenter.request.CenterBasePage">
+        select
+            c.commodity_code ,
+            c.commodity_id ,
+            c.commodity_name ,
+            c.commodity_color ,
+            c.commodity_first_picture ,
+            c.commodity_original_price ,
+            c.commodity_retail_price ,
+            c.commodity_unit_id ,
+            c.commodity_is_sold ,
+            c.commodity_is_lack,
+            c.commodity_totalCount,
+            c.commodity_is_recommend ,
+            c.commodity_inventory  ,
+            c.category_first ,
+            c.category_second ,
+            c.created_by ,
+            c.gmt_create ,
+            c.last_modified_by ,
+            c.gmt_modified ,
+            c.is_deleted ,
+            c.sort_no ,
+            c.version ,
+            t1.category_name as category_name1,
+            t2.category_name as category_name2
+
+        from t_commodity c
+        LEFT JOIN t_category t1 on c.category_first=t1.category_id
+        LEFT JOIN t_category t2 on c.category_second=t2.category_id
+        <include refid="getCenterCommodityListConditions"/>
+    </select>
+
+    <!--查询商品详情-->
+    <select id="getCommodityCenterDetail" parameterType="com.neusoft.entity.commodityCenter.CommodityCenterDetail"  resultType="com.neusoft.entity.commodityCenter.CommodityCenterDetail">
+        select
+            commodity.commodity_id ,
+            commodity.commodity_code ,
+            commodity.commodity_first_picture as picture_address,
+            commodity.commodity_name ,
+            commodity.commodity_retail_price ,
+            commodity.commodity_original_price ,
+            commodity.commodity_color ,
+            commodity.commodity_is_lack ,
+            commodity.commodity_is_sold ,
+            commodity.commodity_unit_id ,
+            commodity.commodity_totalCount ,
+
+            (case when commodity.commodity_Inventory = null then 0
+                   else commodity.commodity_Inventory
+                   end
+            ) as commodity_Inventory ,
+
+            unit.unit_name as commodity_unit_name ,
+
+            (select case when count(1) > 0
+                     then 1
+                     else 0 end as is_collect
+             from t_collect
+             where customer_id = #{customerId}
+                    and commodity_id = #{commodityId}
+                    and is_deleted = 0
+            ) as is_collect ,
+
+            commodity.version
+        from t_commodity commodity
+        left join t_commodity_unit unit on commodity.commodity_unit_id = unit.unit_id
+        where commodity.commodity_id = #{commodityId}
+    </select>
+
+    <!--查询同类商品-->
+    <select id="getCommodityCenterSimilar" resultMap="BaseResultMap">
+        select
+          commodity.commodity_id ,
+          commodity.commodity_first_picture ,
+          commodity.commodity_name ,
+          commodity.commodity_first_picture ,
+
+          commodity.version
+
+        from t_commodity commodity
+        left join t_category category on commodity.category_first = category.category_id
+        where commodity.category_first = #{categoryFirst}
+               and commodity.commodity_id != #{commodityId}
+    </select>
+
+    <!--根据商品id集合查询商品-->
+    <select id="getCommodityByIdList" resultMap="BaseResultMap">
+        select
+        commodity_id ,
+        commodity_retail_price
+
+        from t_commodity commodity
+        where firstCategory.category_id
+              in
+        <foreach collection="commodityIdList" item="commodityId" open="(" separator="," close=")">
+            #{commodityId}
+        </foreach>
+    </select>
+
+    <!--查询该商品的购买历史-->
+    <select id="getCommodityCenterTrading" resultType="com.neusoft.entity.commodityCenter.CommodityCenterTradingVO">
+        select
+            detail.commodity_price ,
+            detail.commodity_num ,
+            detail.created_by ,
+            detail.gmt_create ,
+            detail.version ,
+
+            customer.customer_name
+
+        from t_order_detail detail
+        left join t_order order1 on detail.order_id = order1.order_id
+        left join t_customer customer on order1.customer_id = customer.customer_id
+        where detail.commodity_id = #{commodityId}
+    </select>
+
+    <!--立即购买，查询商品信息-->
+    <select id="getCommodityBuyNow"  resultType="com.neusoft.entity.commodityCenter.CommodityBuyNowVO">
+        select
+        commodity.commodity_id ,
+        commodity.commodity_code ,
+        commodity.commodity_first_picture as picture_address,
+        commodity.commodity_name ,
+        #{commodityNum} as commodity_num ,
+        commodity.commodity_retail_price as commodityPrice ,
+        (commodity.commodity_retail_price * #{commodityNum}) as commodityTotalPrice ,
+
+        commodity.version
+
+        from t_commodity commodity
+        left join t_commodity_unit unit on commodity.commodity_unit_id = unit.unit_id
+        where commodity.commodity_id = #{commodityId}
+    </select>
+
+    <!--通过订单明细修改商品的库存和销售量-->
+    <update id="updateInventoryAndTotalCountByOrderDetail" parameterType="java.util.List">
+        <foreach collection="orderDetailList" item="orderDetail">
+            update t_commodity
+                    set commodity_is_lack = (case when commodity_inventory - #{orderDetail.commodityNum} >= 1 then 0
+                                                   else 1 end),
+                    commodity_inventory = commodity_inventory - #{orderDetail.commodityNum},
+                    commodity_totalCount = commodity_totalCount + #{orderDetail.commodityNum}
+            where commodity_id = #{orderDetail.commodityId}
+        </foreach>
+    </update>
+
+</mapper>

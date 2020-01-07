@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neusoft.commodityCenter.dao.OrderDao">
+    <resultMap id="BaseResultMap" type="com.neusoft.entity.order.OrderVo" >
+        <id column="order_id" property="orderId" jdbcType="VARCHAR" />
+        <result column="order_number" property="orderNumber" jdbcType="VARCHAR" />
+        <result column="order_price" property="orderPrice" jdbcType="DECIMAL" />
+        <result column="customer_id" property="customerId" jdbcType="VARCHAR" />
+        <result column="order_number" property="orderNumber" jdbcType="VARCHAR" />
+        <result column="order_state" property="orderState" jdbcType="INTEGER" />
+        <result column="order_date" property="orderDate" jdbcType="TIMESTAMP" />
+        <result column="order_address" property="orderAddress" jdbcType="VARCHAR" />
+        <result column="receive_tel" property="receiveTel" jdbcType="VARCHAR" />
+        <result column="receive_contact" property="receiveContact" jdbcType="VARCHAR" />
+        <result column="order_remark" property="orderRemark" jdbcType="VARCHAR" />
+
+        <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
+        <result column="sort_no" property="sortNo" jdbcType="INTEGER" />
+        <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+        <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+        <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+        <result column="last_modified_by" property="lastModifiedBy" jdbcType="VARCHAR" />
+        <result column="version" property="version" jdbcType="INTEGER" />
+    </resultMap>
+
+
+
+    <insert id="addOrder" parameterType="com.neusoft.entity.order.Order">
+        insert into t_order(
+            order_id ,
+            customer_id ,
+            order_number ,
+            order_price,
+            order_state ,
+            order_date ,
+            order_address ,
+            receive_tel ,
+            receive_contact ,
+            order_remark,
+
+            is_deleted,
+            sort_no,
+            gmt_create,
+            created_by,
+            gmt_modified,
+            last_modified_by,
+            version
+          ) values (
+            #{orderId,jdbcType=VARCHAR},
+            #{customerId,jdbcType=VARCHAR},
+            #{orderNumber,jdbcType=VARCHAR},
+            (select commodity_total_price from (
+                                                    select sum(commodity_total_price) as commodity_total_price from t_order_detail
+                                                    where order_id = #{orderId,jdbcType=VARCHAR}
+                                                  ) temp
+            ),
+            1,
+            now(),
+            #{orderAddress,jdbcType=VARCHAR},
+            #{receiveTel,jdbcType=VARCHAR},
+            #{receiveContact,jdbcType=VARCHAR},
+            #{orderRemark,jdbcType=VARCHAR},
+
+            0,
+            #{sortNo,jdbcType=VARCHAR},
+            now(),
+            #{createdBy,jdbcType=VARCHAR},
+            now(),
+            #{lastModifiedBy,jdbcType=VARCHAR},
+            0)
+    </insert>
+
+    <select id="getOrderPriceById" parameterType="java.lang.String" resultType="java.lang.String">
+        select order_price from t_order
+        where order_id = #{orderId,jdbcType=VARCHAR}
+    </select>
+
+</mapper>

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.springframework.cloud:spring-cloud-starter-netflix-eureka-server:1.4.6.RELEASE">
+    <CLASSES>
+      <root url="jar://D:/BaiduNetdiskDownload/gradle-4.3.1/jar/caches/modules-2/files-2.1/org.springframework.cloud/spring-cloud-starter-netflix-eureka-server/1.4.6.RELEASE/2ebb4f29ca24ec46ce9c9b8078554ab1cb5dc392/spring-cloud-starter-netflix-eureka-server-1.4.6.RELEASE.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.cloud/spring-cloud-starter-netflix-eureka-server/1.4.6.RELEASE/2ebb4f29ca24ec46ce9c9b8078554ab1cb5dc392/spring-cloud-starter-netflix-eureka-server-1.4.6.RELEASE.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://D:/BaiduNetdiskDownload/gradle-4.3.1/jar/caches/modules-2/files-2.1/org.springframework.cloud/spring-cloud-starter-netflix-eureka-server/1.4.6.RELEASE/83a29ea15a4f67f78793fee11b0be7db828bd208/spring-cloud-starter-netflix-eureka-server-1.4.6.RELEASE-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.cloud/spring-cloud-starter-netflix-eureka-server/1.4.6.RELEASE/83a29ea15a4f67f78793fee11b0be7db828bd208/spring-cloud-starter-netflix-eureka-server-1.4.6.RELEASE-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neusoft.goods.dao.GoodsDao">
+
+
+    <!-- List<Commodity> listGoods(CommodityVO commodityVO)-->
+    <!--获取商品列表信息-->
+    <select id="listGoods" parameterType="com.neusoft.entity.goods.CommodityVO" resultType="com.neusoft.entity.goods.Commodity">
+        select
+        c.commodity_code,
+        c.commodity_id,
+        c.commodity_name,
+        c.commodity_color,
+        c.commodity_first_picture,
+        c.commodity_original_price,
+        c.commodity_retail_price,
+        c.commodity_unit_id,
+        c.commodity_is_sold,
+        c.commodity_totalCount,
+        c.commodity_inventory,
+        c.commodity_is_recommend,
+        c.category_first,
+        c.category_second,
+        c.created_by,
+        c.gmt_create,
+        c.last_modified_by,
+        c.gmt_modified,
+        c.is_deleted,
+        c.sort_no,
+        c.version,
+        t1.category_name as categoryFirstName,
+        t2.category_name as categorySecondName
+        from t_commodity c
+        LEFT JOIN t_category t1 on c.category_first=t1.category_id
+        LEFT JOIN t_category t2 on c.category_second=t2.category_id
+        where
+        c.is_deleted = 0
+        <if test="categoryFirst != null and categoryFirst != ''">
+            and c.category_first = #{categoryFirst}
+        </if>
+        <if test="categorySecond != null and categorySecond != ''">
+            and c.category_second = #{categorySecond}
+        </if>
+        <if test="commodityIsSold != null and commodityIsSold != ''">
+            and c.commodity_is_sold = #{commodityIsSold}
+        </if>
+        <if test="commodityName != null and commodityName != ''">
+            and c.commodity_name = #{commodityName}
+        </if>
+        <if test="commodityCode != null and commodityCode != ''">
+            and c.commodity_code = #{commodityCode}
+        </if>
+        order by c.gmt_create desc
+    </select>
+
+    <!--商品上架/下架-->
+    <update id="updateGoodsIsSell" parameterType="com.neusoft.entity.goods.Commodity">
+        update t_commodity
+           set commodity_is_sold   = #{commodityIsSold,jdbcType=VARCHAR},
+               sort_no        = #{sortNo,jdbcType=NUMERIC},
+               version        = version + 1,
+               gmt_modified   = now(),
+               last_modified_by   = #{lastModifiedBy,jdbcType=VARCHAR}
+         where commodity_id = #{commodityId}
+    </update>
+
+
+    <resultMap type="com.neusoft.entity.goods.Commodity" id="commodityModel">
+        <id column="c_id" property="commodityId"/>
+        <result column="commodity_code" property="commodityCode"/>
+        <result column="commodity_name" property="commodityName"/>
+        <result column="commodity_color" property="commodityColor"/>
+        <result column="commodity_first_picture" property="commodityFirstPicture"/>
+        <result column="commodity_original_price" property="commodityOriginalPrice"/>
+        <result column="commodity_is_sold" property="commodityIsSold"/>
+        <result column="commodity_unit_id" property="commodityUnitId"/>
+        <result column="commodity_inventory" property="commodityInventory"/>
+        <result column="commodity_is_recommend" property="commodityIsRecommend"/>
+        <result column="category_first" property="categoryFirst"/>
+        <result column="category_second" property="categorySecond"/>
+        <result column="commodity_retail_price" property="commodityRetailPrice"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="last_modified_by" property="lastModifiedBy"/>
+        <result column="gmt_modified" property="gmtModified"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="sort_no" property="sortNo"/>
+        <result column="version" property="version"/>
+
+        <!-- 封装一级名称，二级名称-->
+        <result column="category_name1" property="categoryFirstName"/>
+        <result column="category_name2" property="categorySecondName"/>
+        <!--
+            collection定义关联集合类型的属性的封装规则
+            ofType:指定集合里面元素的类型
+        -->
+        <collection property="pictureList" ofType="com.neusoft.entity.goods.CommodityPic">
+            <!-- 定义这个集合中元素的封装规则 -->
+            <id column="picture_id" property="pictureId"/>
+            <result column="picture_address" property="pictureAddress"/>
+            <result column="picture_is_fist_picture" property="pictureIsFistPicture"/>
+        </collection>
+
+    </resultMap>
+
+
+    <!--通过商品ID获取商品详情-->
+    <select id="getGoodsDetail"  parameterType="com.neusoft.entity.goods.CommodityVO" resultMap="commodityModel" >
+         select
+            c.commodity_code commodity_code,
+            c.commodity_id  c_id,
+            c.commodity_name commodity_name,
+            c.commodity_color commodity_color,
+            c.commodity_first_picture commodity_first_picture,
+            c.commodity_original_price commodity_original_price,
+            c.commodity_retail_price commodity_retail_price ,
+            c.commodity_unit_id commodity_unit_id,
+            c.commodity_is_sold commodity_is_sold,
+            c.commodity_is_recommend commodity_is_recommend,
+            c.commodity_inventory commodity_inventory ,
+            c.category_first category_first,
+            c.category_second category_second,
+            c.created_by created_by,
+            c.gmt_create gmt_create,
+            c.last_modified_by last_modified_by,
+            c.gmt_modified gmt_modified,
+            c.is_deleted is_deleted,
+            c.sort_no sort_no,
+            c.version version,
+            t1.category_name as category_name1,
+            t2.category_name as category_name2,
+            t_c_pic.picture_id picture_id,
+            t_c_pic.picture_address picture_address,
+            t_c_pic.picture_is_fist_picture picture_is_fist_picture
+            from t_commodity c
+            LEFT JOIN t_commodity_pic t_c_pic on t_c_pic.commodity_id = c.commodity_id
+            LEFT JOIN t_category t1 on c.category_first=t1.category_id
+            LEFT JOIN t_category t2 on c.category_second=t2.category_id
+            where c.commodity_id = #{commodityId}
+            and c.is_deleted = 0
+    </select>
+
+    <!--删除商品-->
+    <update id="deleteGoods" parameterType="com.neusoft.entity.goods.Commodity">
+        update t_commodity
+           set is_deleted     = 1,
+               version      = version + 1,
+               gmt_modified = now(),
+               last_modified_by   = #{lastModifiedBy,jdbcType=VARCHAR}
+         where t_commodity.commodity_id= #{commodityId}
+    </update>
+
+    <!--商品修改-->
+    <update id="updateGoods" parameterType="com.neusoft.entity.goods.Commodity">
+        update t_commodity
+           set commodity_name = #{commodityName,jdbcType=VARCHAR},
+               category_first = #{categoryFirst,jdbcType=VARCHAR},
+               category_second = #{categorySecond,jdbcType=VARCHAR},
+               commodity_retail_price = #{commodityRetailPrice,jdbcType=NUMERIC},
+               commodity_original_price = #{commodityOriginalPrice,jdbcType=NUMERIC},
+               commodity_is_sold = #{commodityIsSold,jdbcType=INTEGER},
+               commodity_inventory = #{commodityInventory,jdbcType=INTEGER},
+               commodity_unit_id = #{commodityUnitId,jdbcType=VARCHAR},
+               commodity_is_recommend = #{commodityIsRecommend,jdbcType=INTEGER},
+
+               sort_no = #{sortNo,jdbcType=NUMERIC},
+               version = version + 1,
+               gmt_modified = now(),
+               last_modified_by = #{lastModifiedBy,jdbcType=VARCHAR}
+         where commodity_id = #{commodityId,jdbcType=VARCHAR} and version=#{version}
+    </update>
+
+    <!--商品新增-->
+    <insert id="addGoods" parameterType="com.neusoft.entity.goods.Commodity">
+        insert into t_commodity
+           (commodity_name,
+            category_first,
+            category_second,
+            commodity_retail_price,
+            commodity_original_price,
+            commodity_is_sold,
+            commodity_inventory,
+            commodity_color,
+            commodity_unit_id,
+            commodity_is_recommend,
+
+            is_deleted,
+            sort_no,
+            gmt_create,
+            created_by,
+            gmt_modified,
+            last_modified_by,
+            version
+          ) values (
+            #{commodityName,jdbcType=VARCHAR},
+            #{categoryFirst,jdbcType=VARCHAR},
+            #{categorySecond,jdbcType=VARCHAR},
+            #{commodityRetailPrice,jdbcType=NUMERIC},
+            #{commodityOriginalPrice,jdbcType=NUMERIC},
+            #{commodityIsSold,jdbcType=INTEGER},
+            #{commodityInventory,jdbcType=INTEGER},
+            #{commodityColor,jdbcType=VARCHAR},
+            #{commodityUnitId,jdbcType=VARCHAR},
+            #{commodityIsRecommend,jdbcType=INTEGER},
+
+            0,
+            #{sortNo,jdbcType=VARCHAR},
+            now(),
+            #{createdBy,jdbcType=VARCHAR},
+            now(),
+            #{lastModifiedBy,jdbcType=VARCHAR},
+            0)
+    </insert>
+
+    <!--新增图片-->
+    <insert id="addPic" parameterType="com.neusoft.entity.goods.CommodityPic">
+        insert into t_commodity_pic
+           (picture_id,
+            picture_address,
+            picture_is_fist_pictuer,
+            commodity_id,
+
+            is_deleted,
+            sort_no,
+            gmt_create,
+            created_by,
+            gmt_modified,
+            last_modified_by,
+            version
+          ) values (
+            #{pictureId,jdbcType=INTEGER},
+            #{pictureAddress,jdbcType=VARCHAR},
+            #{pictureIsFistPictuer,jdbcType=INTEGER},
+            #{commodityId,jdbcType=VARCHAR},
+
+            0,
+            #{sortNo,jdbcType=VARCHAR},
+            now(),
+            #{createdBy,jdbcType=VARCHAR},
+            now(),
+            #{lastModifiedBy,jdbcType=VARCHAR},
+            0)
+    </insert>
+
+    <!--通过图片ID修改图片-->
+    <update id="updatePic" parameterType="com.neusoft.entity.goods.CommodityPic">
+        update t_commodity_pic
+           set picture_address = #{pictureAddress,jdbcType=VARCHAR},
+               picture_is_fist_pictuer = #{pictureIsFistPictuer,jdbcType=INTEGER},
+
+               sort_no = #{sortNo,jdbcType=NUMERIC},
+               version = version + 1,
+               gmt_modified = now(),
+               last_modified_by = #{lastModifiedBy,jdbcType=VARCHAR}
+         where picture_id = #{pictureId,jdbcType=INTEGER}
+    </update>
+</mapper>

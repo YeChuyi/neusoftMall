@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.springframework.boot:spring-boot-starter-actuator:1.5.19.RELEASE">
+    <CLASSES>
+      <root url="jar://D:/BaiduNetdiskDownload/gradle-4.3.1/jar/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-actuator/1.5.19.RELEASE/a4c89f81b8eebe5e42aeab1fa230ca8d3a84502f/spring-boot-starter-actuator-1.5.19.RELEASE.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-actuator/1.5.19.RELEASE/a4c89f81b8eebe5e42aeab1fa230ca8d3a84502f/spring-boot-starter-actuator-1.5.19.RELEASE.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://D:/BaiduNetdiskDownload/gradle-4.3.1/jar/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-actuator/1.5.19.RELEASE/7f48094b219b4f1194e0e45b7dc79df3fee21730/spring-boot-starter-actuator-1.5.19.RELEASE-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-actuator/1.5.19.RELEASE/7f48094b219b4f1194e0e45b7dc79df3fee21730/spring-boot-starter-actuator-1.5.19.RELEASE-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

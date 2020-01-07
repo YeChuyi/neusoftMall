@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="common-api_main" target="1.8" />
+      <module name="common-api_test" target="1.8" />
+      <module name="consumer-systemManagement-9001_main" target="1.8" />
+      <module name="consumer-systemManagement-9001_test" target="1.8" />
+      <module name="eureka-service_main" target="1.8" />
+      <module name="eureka-service_test" target="1.8" />
+      <module name="fastdfs-service_main" target="1.8" />
+      <module name="fastdfs-service_test" target="1.8" />
+      <module name="neusoftMall_main" target="1.8" />
+      <module name="neusoftMall_test" target="1.8" />
+      <module name="provider-pageManagement-commodityCenter-9100_main" target="1.8" />
+      <module name="provider-pageManagement-commodityCenter-9100_test" target="1.8" />
+      <module name="provider-systemManagement-8001_main" target="1.8" />
+      <module name="provider-systemManagement-8001_test" target="1.8" />
+      <module name="provider-systemManagement-category-8101_main" target="1.8" />
+      <module name="provider-systemManagement-category-8101_test" target="1.8" />
+      <module name="redis-server-6001_main" target="1.8" />
+      <module name="redis-server-6001_test" target="1.8" />
+      <module name="redis-service_main" target="1.8" />
+      <module name="redis-service_test" target="1.8" />
+      <module name="zuul-gateway-service-7001_main" target="1.8" />
+      <module name="zuul-gateway-service-7001_test" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

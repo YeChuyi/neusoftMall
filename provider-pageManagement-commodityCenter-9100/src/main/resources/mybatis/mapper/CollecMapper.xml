@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neusoft.commodityCenter.dao.CollecDao">
+    <resultMap id="BaseResultMap" type="com.neusoft.entity.collect.CollectVo" >
+        <id column="collect_id" property="collectId" jdbcType="VARCHAR" />
+        <result column="customer_id" property="customerId" jdbcType="VARCHAR" />
+        <result column="commodity_id" property="commodityId" jdbcType="VARCHAR" />
+
+        <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
+        <result column="sort_no" property="sortNo" jdbcType="INTEGER" />
+        <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+        <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+        <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+        <result column="last_modified_by" property="lastModifiedBy" jdbcType="VARCHAR" />
+        <result column="version" property="version" jdbcType="INTEGER" />
+    </resultMap>
+
+    <insert id="addCommodityCollection" parameterType="java.util.List">
+        insert into t_collect(
+            collect_id ,
+            customer_id ,
+            commodity_id ,
+
+            is_deleted,
+            sort_no,
+            gmt_create,
+            created_by,
+            gmt_modified,
+            last_modified_by,
+            version
+
+          )
+        <foreach collection="collectList" item="collect" open="values (" separator="),(" close=")">
+            #{collect.collectId,jdbcType=VARCHAR},
+            #{collect.customerId,jdbcType=VARCHAR},
+            #{collect.commodityId,jdbcType=VARCHAR},
+
+            0,
+            #{collect.sortNo,jdbcType=VARCHAR},
+            now(),
+            #{collect.createdBy,jdbcType=VARCHAR},
+            now(),
+            #{collect.lastModifiedBy,jdbcType=VARCHAR},
+            0
+        </foreach>
+    </insert>
+
+    <update id="deleteCommodityCollection" parameterType="java.util.List">
+        <foreach collection="collectList" item="collect">
+            update t_collect set
+            is_deleted = 1 ,
+            gmt_modified = now() ,
+            last_modified_by = #{collect.lastModifiedBy}
+
+            where is_deleted = 0
+                    and customer_id = #{collect.customerId}
+                    and commodity_id = #{collect.commodityId}
+        </foreach>
+    </update>
+
+    <select id="getCommodityCollectionList" resultType="com.neusoft.entity.collect.CollectDetailVO" parameterType="java.util.List">
+        select
+            collect.commodity_id ,
+            collect.customer_id ,
+            commodity.commodity_name ,
+            commodity.commodity_first_picture as picture_address ,
+            commodity.commodity_retail_price
+
+        from t_commodity commodity
+        left join t_collect collect on collect.commodity_id = commodity.commodity_id
+        where collect.customer_id = #{customerId}
+              and collect.is_deleted = 0
+    </select>
+
+    <select id="getIsCollect" resultType="java.lang.Integer" parameterType="com.neusoft.entity.collect.Collect">
+        select count(1) from t_collect
+        where customer_id = #{customerId}
+		  and commodity_id = #{commodityId}
+		  and is_deleted = 0
+    </select>
+</mapper>

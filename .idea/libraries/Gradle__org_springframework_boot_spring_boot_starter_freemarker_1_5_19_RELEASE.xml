@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.springframework.boot:spring-boot-starter-freemarker:1.5.19.RELEASE">
+    <CLASSES>
+      <root url="jar://D:/BaiduNetdiskDownload/gradle-4.3.1/jar/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-freemarker/1.5.19.RELEASE/afb7d6b463bd1f89047978df6498e59689fa814b/spring-boot-starter-freemarker-1.5.19.RELEASE.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-freemarker/1.5.19.RELEASE/afb7d6b463bd1f89047978df6498e59689fa814b/spring-boot-starter-freemarker-1.5.19.RELEASE.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://D:/BaiduNetdiskDownload/gradle-4.3.1/jar/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-freemarker/1.5.19.RELEASE/6a591f6e81f46c9ad00f22762a5c9c2b8048f6a9/spring-boot-starter-freemarker-1.5.19.RELEASE-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-freemarker/1.5.19.RELEASE/6a591f6e81f46c9ad00f22762a5c9c2b8048f6a9/spring-boot-starter-freemarker-1.5.19.RELEASE-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

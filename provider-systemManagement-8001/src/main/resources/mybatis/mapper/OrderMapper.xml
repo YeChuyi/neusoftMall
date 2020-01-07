@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.order.dao.OrderDao">
+
+  <!--List<Order> getOrders(@Param("orderNumber") String orderNumber,@Param("orderState") String orderState,@Param("orderDateStart") String orderDateStart,@Param("orderDateEnd") String orderDateEnd);-->
+  <select id="getOrders" parameterType="com.neusoft.entity.order.Order" resultType="com.neusoft.entity.order.OrderVo">
+    select
+    o.order_id,
+    o.order_number,
+    o.order_price,
+    c.customer_name,
+    o.order_state,
+    o.order_date,
+    o.receive_tel,
+    o.order_address,
+    o.receive_contact,
+    o.order_remark,
+    o.created_by,
+    o.gmt_create,
+    o.last_modified_by,
+    o.gmt_modified,
+    o.is_deleted,
+    o.sort_no,
+    o.version
+    from t_order as  o left join t_customer as c ON c.customer_id = o.customer_id
+    where
+    o.is_deleted = 0
+    <if test="orderNumber != null and orderNumber != ''">
+      and o.order_number = #{orderNumber}
+    </if>
+    <if test="orderState != null and orderState != ''">
+      and o.order_state = #{orderState}
+    </if>
+    <if test="orderDateStart != null and orderDateStart != '' and orderDateStart != 'null'">
+      and o.order_date   <![CDATA[>=]]> #{orderDateStart}
+    </if>
+    <if test="orderDateEnd != null and orderDateEnd != '' and  orderDateEnd !='null'">
+      and o.order_date   <![CDATA[<=]]> #{orderDateEnd}
+    </if>
+    order by o.gmt_create desc
+  </select>
+
+  <!--List<OrderDetial> getOrderDetail(String  orderId);-->
+  <select id="getOrderDetail" parameterType="com.neusoft.entity.order.OrderDetail" resultType="com.neusoft.entity.order.OrderDetailVO">
+    select
+      c.commodity_id,
+      c.commodity_first_picture,
+      c.commodity_code,
+      c.commodity_name,
+      o.commodity_price,
+      o.commodity_num,
+      o.commodity_total_price,
+      o.created_by,
+      o.gmt_create,
+      o.last_modified_by,
+      o.gmt_modified,
+      o.is_deleted,
+      o.sort_no,
+      o.version
+    from t_order_detail as o
+           left join t_commodity as c ON o.commodity_id = c.commodity_id
+    where
+      o.is_deleted = 0 and o.order_id = #{orderId}
+  </select>
+
+  <!--OrderVo getOrderVo(String orderId);-->
+  <select id="getOrderVo" parameterType="com.neusoft.entity.order.Order" resultType="com.neusoft.entity.order.OrderVo">
+    select
+      o.order_id,
+      o.order_number,
+      o.order_price,
+      o.customer_id,
+      o.order_state,
+      o.order_date,
+      o.receive_tel,
+      o.order_address,
+      o.receive_contact,
+      o.order_remark,
+      o.created_by,
+      o.gmt_create,
+      o.last_modified_by,
+      o.gmt_modified,
+      o.is_deleted,
+      o.sort_no,
+      o.version,
+      c.customer_name
+    from t_order as o LEFT  JOIN  t_customer as c ON c.customer_id = o.customer_id
+    where
+      o.is_deleted = 0 and o.order_id = #{orderId}
+  </select>
+
+  <!-- int updateOrderStatus(OrderVo orederVo);-->
+  <update id="updateOrderStatus" parameterType="com.neusoft.entity.order.OrderVo">
+    UPDATE t_order
+    SET order_state = 2,
+        version = version + 1,
+        gmt_modified = now(),
+        last_modified_by = #{lastModifiedBy}
+   <foreach collection="orderNumberList" item="orderId" open="where is_deleted = 0 and order_id in(" separator="," close=")">
+                    #{orderId}
+  </foreach>
+  </update>
+</mapper>

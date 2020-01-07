@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neusoft.commodityCenter.dao.ShopDao">
+    <resultMap id="BaseResultMap" type="com.neusoft.entity.shop.ShopVo" >
+        <id column="shop_id" property="shopId" jdbcType="VARCHAR" />
+        <result column="commodity_id" property="commodityId" jdbcType="VARCHAR" />
+        <result column="shop_number" property="shopNumber" jdbcType="VARCHAR" />
+        <result column="customer_id" property="customerId" jdbcType="VARCHAR" />
+
+        <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
+        <result column="sort_no" property="sortNo" jdbcType="INTEGER" />
+        <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+        <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+        <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+        <result column="last_modified_by" property="lastModifiedBy" jdbcType="VARCHAR" />
+        <result column="version" property="version" jdbcType="INTEGER" />
+    </resultMap>
+
+    <insert id="addShoppingCart" parameterType="com.neusoft.entity.order.Order">
+        insert into t_shop(
+            shop_id ,
+            commodity_id ,
+            shop_number,
+            customer_id,
+
+            is_deleted,
+            sort_no,
+            gmt_create,
+            created_by,
+            gmt_modified,
+            last_modified_by,
+            version
+          ) values (
+            #{shopId,jdbcType=VARCHAR},
+            #{commodityId,jdbcType=VARCHAR},
+            #{shopNumber,jdbcType=INTEGER},
+            #{customerId,jdbcType=VARCHAR},
+
+            0,
+            #{sortNo,jdbcType=VARCHAR},
+            now(),
+            #{createdBy,jdbcType=VARCHAR},
+            now(),
+            #{lastModifiedBy,jdbcType=VARCHAR},
+            0)
+    </insert>
+
+    <!--通过订单明细修改购物车的商品-->
+    <update id="deleteShoppingCartByOrderDetail" parameterType="java.util.List">
+        <foreach collection="orderDetailList" item="orderDetail">
+            update t_shop
+            set is_deleted = 1,
+                last_modified_by = #{orderDetail.lastModifiedBy},
+                gmt_modified = now()
+            where commodity_id = #{orderDetail.commodityId}
+        </foreach>
+    </update>
+
+</mapper>

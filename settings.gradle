@@ -1,0 +1,10 @@
+rootProject.name = 'neusoftMall'
+include 'common-api'
+include 'provider-systemManagement-8001'
+include 'eureka-service'
+include 'zuul-gateway-service-7001'
+include 'redis-service'
+include 'fastdfs-service'
+include 'provider-systemManagement-category-8101'
+include 'provider-pageManagement-commodityCenter-9100'
+

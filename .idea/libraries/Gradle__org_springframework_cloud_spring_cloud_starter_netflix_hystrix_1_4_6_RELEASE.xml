@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.springframework.cloud:spring-cloud-starter-netflix-hystrix:1.4.6.RELEASE">
+    <CLASSES>
+      <root url="jar://D:/BaiduNetdiskDownload/gradle-4.3.1/jar/caches/modules-2/files-2.1/org.springframework.cloud/spring-cloud-starter-netflix-hystrix/1.4.6.RELEASE/5277f63bbf0b330571dc591575fa5bc5d320e258/spring-cloud-starter-netflix-hystrix-1.4.6.RELEASE.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.cloud/spring-cloud-starter-netflix-hystrix/1.4.6.RELEASE/5277f63bbf0b330571dc591575fa5bc5d320e258/spring-cloud-starter-netflix-hystrix-1.4.6.RELEASE.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://D:/BaiduNetdiskDownload/gradle-4.3.1/jar/caches/modules-2/files-2.1/org.springframework.cloud/spring-cloud-starter-netflix-hystrix/1.4.6.RELEASE/a4911714cd20c305b9b37ea543d27caff1bdb7b3/spring-cloud-starter-netflix-hystrix-1.4.6.RELEASE-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.cloud/spring-cloud-starter-netflix-hystrix/1.4.6.RELEASE/a4911714cd20c305b9b37ea543d27caff1bdb7b3/spring-cloud-starter-netflix-hystrix-1.4.6.RELEASE-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

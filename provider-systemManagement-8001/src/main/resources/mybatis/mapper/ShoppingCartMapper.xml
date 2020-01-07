@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neusoft.shoppingCart.dao.ShoppingCartDao">
+    <resultMap id="BaseResultMap" type="com.neusoft.entity.shop.ShopVo" >
+        <id column="shop_id" property="shopId" jdbcType="VARCHAR" />
+        <result column="commodity_id" property="commodityId" jdbcType="VARCHAR" />
+        <result column="shop_number" property="shopNumber" jdbcType="INTEGER" />
+        <result column="customer_id" property="customerId" jdbcType="VARCHAR" />
+
+        <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
+        <result column="sort_no" property="sortNo" jdbcType="INTEGER" />
+        <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+        <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+        <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+        <result column="last_modified_by" property="lastModifiedBy" jdbcType="VARCHAR" />
+        <result column="version" property="version" jdbcType="INTEGER" />
+    </resultMap>
+
+    <!--购物车商品查询-->
+    <select id="shopList" resultMap="BaseResultMap" parameterType="com.neusoft.entity.shop.Shop">
+        select
+            shop_id,
+            commodity_id,
+            shop_number,
+            customer_id,
+
+            created_by,
+            gmt_create,
+            last_modified_by,
+            gmt_modified,
+            is_deleted,
+            sort_no,
+            version
+        from t_shop s
+        where
+        s.is_deleted = 0
+        and customer_id = #{customerId,jdbcType=VARCHAR}
+        order by c.gmt_create desc
+    </select>
+
+    <!--购物车商品删除-->
+    <update id="deleteShop" parameterType="com.neusoft.entity.shop.Shop">
+        update t_shop
+           set is_deleted = 1,
+               version = version + 1,
+               gmt_modified = now(),
+               last_modified_by = #{lastModifiedBy,jdbcType=VARCHAR}
+         where shop_id = #{shopId,jdbcType=VARCHAR}
+    </update>
+</mapper>

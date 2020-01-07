@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.order.dao.OrderDetailDao">
+  <!--<resultMap id="BaseResultMap" type="com.neusoft.entity.order.Order">-->
+    <!--<id column="order_id" jdbcType="VARCHAR" property="orderId" />-->
+    <!--<result column="order_number" jdbcType="VARCHAR" property="orderNumber" />-->
+    <!--<result column="order_price" jdbcType="DECIMAL" property="orderPrice" />-->
+    <!--<result column="customer_id" jdbcType="VARCHAR" property="customerId" />-->
+    <!--<result column="order_state" jdbcType="INTEGER" property="orderState" />-->
+    <!--<result column="order_date" jdbcType="TIMESTAMP" property="orderDate" />-->
+    <!--<result column="order_address" jdbcType="VARCHAR" property="orderAddress" />-->
+    <!--<result column="receive_tel" jdbcType="VARCHAR" property="receiveTel" />-->
+    <!--<result column="receive_contact" jdbcType="VARCHAR" property="receiveContact" />-->
+    <!--<result column="order_remark" jdbcType="VARCHAR" property="orderRemark" />-->
+    <!--<result column="created_by" jdbcType="VARCHAR" property="createdBy" />-->
+    <!--<result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />-->
+    <!--<result column="last_modified_by" jdbcType="VARCHAR" property="lastModifiedBy" />-->
+    <!--<result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />-->
+    <!--<result column="is_deleted" jdbcType="INTEGER" property="isDeleted" />-->
+    <!--<result column="sort_no" jdbcType="INTEGER" property="sortNo" />-->
+    <!--<result column="version" jdbcType="INTEGER" property="version" />-->
+  <!--</resultMap>-->
+
+  <select id="getOrderDetail" parameterType="com.neusoft.entity.order.OrderDetial" resultType="com.neusoft.entity.order.OrderDetial">
+    select
+    commodity_id
+    from t_order_detail
+    where
+    is_deleted = 0 and order_id = #{orderId}
+  </select>
+</mapper>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/provider-systemManagement-8001/src/main/resources/mybatis/mapper/GoodsMapper.xml" dialect="MySQL" />
+  </component>
+</project>

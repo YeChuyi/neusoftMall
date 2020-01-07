@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common-api/common-api.iml" filepath="$PROJECT_DIR$/.idea/modules/common-api/common-api.iml" group="common-api" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common-api/common-api_main.iml" filepath="$PROJECT_DIR$/.idea/modules/common-api/common-api_main.iml" group="common-api" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common-api/common-api_test.iml" filepath="$PROJECT_DIR$/.idea/modules/common-api/common-api_test.iml" group="common-api" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/eureka-service/eureka-service.iml" filepath="$PROJECT_DIR$/.idea/modules/eureka-service/eureka-service.iml" group="eureka-service" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/eureka-service/eureka-service_main.iml" filepath="$PROJECT_DIR$/.idea/modules/eureka-service/eureka-service_main.iml" group="eureka-service" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/eureka-service/eureka-service_test.iml" filepath="$PROJECT_DIR$/.idea/modules/eureka-service/eureka-service_test.iml" group="eureka-service" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/fastdfs-service/fastdfs-service.iml" filepath="$PROJECT_DIR$/.idea/modules/fastdfs-service/fastdfs-service.iml" group="fastdfs-service" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/fastdfs-service/fastdfs-service_main.iml" filepath="$PROJECT_DIR$/.idea/modules/fastdfs-service/fastdfs-service_main.iml" group="fastdfs-service" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/fastdfs-service/fastdfs-service_test.iml" filepath="$PROJECT_DIR$/.idea/modules/fastdfs-service/fastdfs-service_test.iml" group="fastdfs-service" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/neusoftMall.iml" filepath="$PROJECT_DIR$/.idea/modules/neusoftMall.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/neusoftMall_main.iml" filepath="$PROJECT_DIR$/.idea/modules/neusoftMall_main.iml" group="neusoftMall" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/neusoftMall_test.iml" filepath="$PROJECT_DIR$/.idea/modules/neusoftMall_test.iml" group="neusoftMall" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/provider-pageManagement-commodityCenter-9100/provider-pageManagement-commodityCenter-9100.iml" filepath="$PROJECT_DIR$/.idea/modules/provider-pageManagement-commodityCenter-9100/provider-pageManagement-commodityCenter-9100.iml" group="provider-pageManagement-commodityCenter-9100" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/provider-pageManagement-commodityCenter-9100/provider-pageManagement-commodityCenter-9100_main.iml" filepath="$PROJECT_DIR$/.idea/modules/provider-pageManagement-commodityCenter-9100/provider-pageManagement-commodityCenter-9100_main.iml" group="provider-pageManagement-commodityCenter-9100" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/provider-pageManagement-commodityCenter-9100/provider-pageManagement-commodityCenter-9100_test.iml" filepath="$PROJECT_DIR$/.idea/modules/provider-pageManagement-commodityCenter-9100/provider-pageManagement-commodityCenter-9100_test.iml" group="provider-pageManagement-commodityCenter-9100" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/provider-systemManagement-8001/provider-systemManagement-8001.iml" filepath="$PROJECT_DIR$/.idea/modules/provider-systemManagement-8001/provider-systemManagement-8001.iml" group="provider-systemManagement-8001" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/provider-systemManagement-8001/provider-systemManagement-8001_main.iml" filepath="$PROJECT_DIR$/.idea/modules/provider-systemManagement-8001/provider-systemManagement-8001_main.iml" group="provider-systemManagement-8001" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/provider-systemManagement-8001/provider-systemManagement-8001_test.iml" filepath="$PROJECT_DIR$/.idea/modules/provider-systemManagement-8001/provider-systemManagement-8001_test.iml" group="provider-systemManagement-8001" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/provider-systemManagement-category-8101/provider-systemManagement-category-8101.iml" filepath="$PROJECT_DIR$/.idea/modules/provider-systemManagement-category-8101/provider-systemManagement-category-8101.iml" group="provider-systemManagement-category-8101" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/provider-systemManagement-category-8101/provider-systemManagement-category-8101_main.iml" filepath="$PROJECT_DIR$/.idea/modules/provider-systemManagement-category-8101/provider-systemManagement-category-8101_main.iml" group="provider-systemManagement-category-8101" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/provider-systemManagement-category-8101/provider-systemManagement-category-8101_test.iml" filepath="$PROJECT_DIR$/.idea/modules/provider-systemManagement-category-8101/provider-systemManagement-category-8101_test.iml" group="provider-systemManagement-category-8101" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/redis-service/redis-service.iml" filepath="$PROJECT_DIR$/.idea/modules/redis-service/redis-service.iml" group="redis-service" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/redis-service/redis-service_main.iml" filepath="$PROJECT_DIR$/.idea/modules/redis-service/redis-service_main.iml" group="redis-service" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/redis-service/redis-service_test.iml" filepath="$PROJECT_DIR$/.idea/modules/redis-service/redis-service_test.iml" group="redis-service" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/zuul-gateway-service-7001/zuul-gateway-service-7001.iml" filepath="$PROJECT_DIR$/.idea/modules/zuul-gateway-service-7001/zuul-gateway-service-7001.iml" group="zuul-gateway-service-7001" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/zuul-gateway-service-7001/zuul-gateway-service-7001_main.iml" filepath="$PROJECT_DIR$/.idea/modules/zuul-gateway-service-7001/zuul-gateway-service-7001_main.iml" group="zuul-gateway-service-7001" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/zuul-gateway-service-7001/zuul-gateway-service-7001_test.iml" filepath="$PROJECT_DIR$/.idea/modules/zuul-gateway-service-7001/zuul-gateway-service-7001_test.iml" group="zuul-gateway-service-7001" />
+    </modules>
+  </component>
+</project>
